@@ -8,10 +8,6 @@ export class BasicViewModel extends ModelView {
         super();
     }
 
-    getName(): string{
-        return this.basicModel.getName();
-    }
-    
     setName(name: string){
         if(this.renderer != null){
             this.renderer();
@@ -19,4 +15,10 @@ export class BasicViewModel extends ModelView {
 
         this.basicModel.setName(`${name} (modified)`)
     }
+
+
+    getName(): string{
+        return this.basicModel.getName();
+    }
+
 }
