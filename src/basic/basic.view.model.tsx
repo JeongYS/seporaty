@@ -5,7 +5,7 @@ import { BasicModel } from "./basic.model";
 
 export class BasicViewModel extends ModelView {
     constructor(private basicModel : BasicModel){
-        super();
+        super(basicModel);
     }
 
     setName(name: string){

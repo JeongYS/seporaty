@@ -1,16 +1,23 @@
+import { Model, REST } from "@seporaty/MVVM/Model.Basic";
+import { AxiosResponse } from "axios";
 import { BasicData } from "./Interface/basic.interface";
 
-export class BasicModel {
-    private basicData : BasicData = {name: 'Basic Component!'};
+export class BasicModel extends Model {
+    private basicData: BasicData = { name: "Basic Component!" };
 
-    constructor () {}
+    constructor() {
+        super();
+    }
 
-    getName(): string{
+    getName(): string {
         return this.basicData.name;
     }
 
-    setName(name : string){
+    setName(name: string) {
+        this.useAPI("http://localhost:8080", {}, REST.GET, (value: AxiosResponse) => {
+            console.log(value.data);
+        });
+
         this.basicData.name = name;
     }
 }
-

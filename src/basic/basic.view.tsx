@@ -1,11 +1,10 @@
-import { useSubscibe } from "@seporaty/MVVM";
+import { useSubscribe } from "@seporaty/MVVM";
 import * as React from "react";
 import { BasicViewModel } from "./basic.view.model";
 
 const BasicComponent: React.FC<{ basicViewModel: BasicViewModel }> = (props) => {
-
-    const subscribe = useSubscibe(props.basicViewModel);
-
+    const subscribe = useSubscribe(props.basicViewModel);
+    
     return (
         <div>
             Seporaty-React Basic Component
@@ -13,7 +12,6 @@ const BasicComponent: React.FC<{ basicViewModel: BasicViewModel }> = (props) => 
             <button
                 onClick={() => {
                     props.basicViewModel.setName('New Name!!');
-                    console.log(props.basicViewModel.getName());
                 }}
             >
                 Edit Name

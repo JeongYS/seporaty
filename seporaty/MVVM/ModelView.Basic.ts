@@ -1,5 +1,7 @@
+import { Model } from "./Model.Basic";
+
 export class ModelView{
-    constructor(){};
+    constructor(private model:Model){};
 
     protected renderer: any = null;
 
