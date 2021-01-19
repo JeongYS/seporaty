@@ -1,14 +1,16 @@
 import { useSubscribe } from "@seporaty/MVVM";
 import * as React from "react";
 import { BasicViewModel } from "./basic.view.model";
+import { connect } from 'react-redux';
 
-const BasicComponent: React.FC<{ basicViewModel: BasicViewModel }> = (props) => {
-    const subscribe = useSubscribe(props.basicViewModel);
+
+const BasicComponent: React.FC<{ basicViewModel: BasicViewModel, name: string }> = (props) => {
+    console.log(props)
     
     return (
         <div>
             Seporaty-React Basic Component
-            <p>Model Name : {props.basicViewModel.getName()}</p>
+            <p>Model Name : {props.name}</p>
             <button
                 onClick={() => {
                     props.basicViewModel.setName('New Name!!');
@@ -26,4 +28,12 @@ const BasicComponent: React.FC<{ basicViewModel: BasicViewModel }> = (props) => 
     );
 };
 
-export default BasicComponent;
+const mapStateToProps = (state:any) =>{
+    return {
+        name: state.basicReducer.name
+    }
+}
+
+const ConnectedBasicComponent = connect(mapStateToProps)(BasicComponent);
+
+export default ConnectedBasicComponent;

@@ -5,6 +5,11 @@ import { BasicModel } from "./basic/basic.model";
 import BasicComponent from "./basic/basic.view";
 import { BasicViewModel } from "./basic/basic.view.model";
 
+import  { createStore } from 'redux'
+import basicReducers from './basic/redux/basic.reducers'
+import { Provider } from "react-redux";
+
+const globalStore = createStore(basicReducers);
 
 const Root: React.FC = () =>{
     const basicModel: BasicModel = new BasicModel();
@@ -16,5 +21,5 @@ const Root: React.FC = () =>{
 }
 
 ReactDOM.render (
-    <Root/>, document.getElementById('root')
+    <Provider store={globalStore}><Root /></Provider>, document.getElementById('root')
 )
