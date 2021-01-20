@@ -1,6 +1,6 @@
 import { Model } from "./Model.Basic";
 
-export class ModelView{
+export class ViewModel{
     constructor(private model:Model){};
 
     protected renderer: any = null;

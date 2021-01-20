@@ -1,4 +1,4 @@
-import { ModelView } from "./ModelView.Basic";
+import { ViewModel } from "./ViewModel.Basic";
 import { useSubscribe } from "./Hooks/useSubscribe"
 
-export {ModelView, useSubscribe};
+export {ViewModel, useSubscribe};

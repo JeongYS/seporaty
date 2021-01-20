@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios";
 import { BasicData } from "./Interface/basic.interface";
 
 export class BasicModel extends Model {
-    private basicData: BasicData = { name: "Basic Component!" };
+    public basicData: BasicData = { name: "Basic Component!" };
 
     constructor() {
         super();
@@ -14,9 +14,9 @@ export class BasicModel extends Model {
     }
 
     setName(name: string) {
-        this.useAPI("http://localhost:8080", {}, REST.GET, (value: AxiosResponse) => {
-            console.log(value.data);
-        });
+        // this.useAPI("http://localhost:8080", {}, REST.GET, (value: AxiosResponse) => {
+        //     console.log(value.data);
+        // });
 
         this.basicData.name = name;
     }

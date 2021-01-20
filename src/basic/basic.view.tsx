@@ -1,39 +1,43 @@
 import { useSubscribe } from "@seporaty/MVVM";
 import * as React from "react";
-import { BasicViewModel } from "./basic.view.model";
-import { connect } from 'react-redux';
+import { BasicViewModel, Action } from "./basic.view.model";
+import { connect } from "react-redux";
 
+const BasicComponent: React.FC<{ basicViewModel: BasicViewModel }> = (props) => {
 
-const BasicComponent: React.FC<{ basicViewModel: BasicViewModel, name: string }> = (props) => {
-    console.log(props)
-    
+    const [state, setState] = React.useState(props.basicViewModel.createProperties());
+
+    useSubscribe(props.basicViewModel);
+
     return (
         <div>
             Seporaty-React Basic Component
-            <p>Model Name : {props.name}</p>
+            <p>Model Name : {props.basicViewModel.getName()}</p>
             <button
                 onClick={() => {
-                    props.basicViewModel.setName('New Name!!');
+                    props.basicViewModel.setName('asd');
                 }}
             >
                 Edit Name
             </button>
-            <button
-                onClick={() => {
-                }}
-            >
-                View Name
-            </button>
+            <button onClick={() => {}}>View Name</button>
         </div>
     );
 };
 
-const mapStateToProps = (state:any) =>{
-    return {
-        name: state.basicReducer.name
-    }
+function commandToViewModel() {
+
 }
 
-const ConnectedBasicComponent = connect(mapStateToProps)(BasicComponent);
+function bindViewModel(Component: any) {
+    console.log()
 
-export default ConnectedBasicComponent;
+    return function (addProps: { name: string }) {
+        const NewComponet: React.FC<{basicViewModel: BasicViewModel}> = (props) => {
+            return <Component {...{ ...props, ...addProps }}></Component>;
+        };
+        return NewComponet;
+    };
+}
+
+export default bindViewModel(BasicComponent)({ name: "newName" });
