@@ -3,43 +3,38 @@ import { SeporatyAction } from "@seporaty/Action/Action";
 import { ViewModel } from "@seporaty/MVVM";
 
 export const Action = {
-    UPDATENAME: 'UpdateName',
-    TESTB: 'TESTB'
-}
+    UPDATENAME: "UpdateName",
+    TESTB: "TESTB",
+};
 
-export class BasicViewModel extends ViewModel {
-    constructor(private basicModel : BasicModel){
-        super(basicModel);
+export class BasicViewModel {
+    private view: React.Component;
+    constructor(view: React.Component) {
+        this.view = view;
     }
 
-    private element : any;
+    private basicModel = new BasicModel();
 
-    command(action: SeporatyAction, name: string){
-        switch (action.action){
-            case Action.UPDATENAME :
-                this.basicModel.setName(name);
-        }
+    private element: any;
+
+    async setName(name: string) {
+        this.view.setState({
+            name: `${name} (modified)`,
+        });
     }
 
-    setName(name: string){
-        if(this.renderer != null){
-            this.renderer();
-        }
-
-        this.basicModel.setName(`${name} (modified)`)
+    async getName() {
+        let tt = await this.basicModel.getName();
+        this.view.setState({
+            name: `${tt} (modified)`,
+        });
     }
 
+    // createProperties() {
+    //     return {name : this.basicModel.getName()}
+    // }
 
-    getName(): string{
-        return this.basicModel.getName();
-    }
-
-    createProperties() {
-        return {name : this.basicModel.getName()}
-    }
-
-    bind(element: any){
-        console.log(typeof element)
-    }
-
+    // bind(element: any){
+    //     console.log(typeof element)
+    // }
 }

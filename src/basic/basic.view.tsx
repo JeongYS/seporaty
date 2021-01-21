@@ -2,42 +2,40 @@ import { useSubscribe } from "@seporaty/MVVM";
 import * as React from "react";
 import { BasicViewModel, Action } from "./basic.view.model";
 import { connect } from "react-redux";
+import { BasicModel } from "./basic.model";
 
-const BasicComponent: React.FC<{ basicViewModel: BasicViewModel }> = (props) => {
+class BasicComponent extends React.Component<{}, {name: string}> {
+    private basicViewModel: BasicViewModel = new BasicViewModel(this);
 
-    const [state, setState] = React.useState(props.basicViewModel.createProperties());
+    constructor(props: {}) {
+        super(props);
+        this.state = { name: "basic component" };
+        this.basicViewModel.getName();
+    }
 
-    useSubscribe(props.basicViewModel);
-
-    return (
-        <div>
-            Seporaty-React Basic Component
-            <p>Model Name : {props.basicViewModel.getName()}</p>
-            <button
-                onClick={() => {
-                    props.basicViewModel.setName('asd');
-                }}
-            >
-                Edit Name
-            </button>
-            <button onClick={() => {}}>View Name</button>
-        </div>
-    );
-};
-
-function commandToViewModel() {
-
+    render() {
+        return (
+            <div>
+                Seporaty-React Basic Component
+                <p>Model Name : {this.state.name}</p>
+                <button onClick={() => {this.basicViewModel.setName('new component')}}>Edit Name</button>
+                <button onClick={() => {}}>View Name</button>
+            </div>
+        );
+    }
 }
 
-function bindViewModel(Component: any) {
-    console.log()
+// function commandToViewModel() {}
 
-    return function (addProps: { name: string }) {
-        const NewComponet: React.FC<{basicViewModel: BasicViewModel}> = (props) => {
-            return <Component {...{ ...props, ...addProps }}></Component>;
-        };
-        return NewComponet;
-    };
-}
+// function bindViewModel(Component: any) {
+//     console.log();
 
-export default bindViewModel(BasicComponent)({ name: "newName" });
+//     return function (addProps: { name: string }) {
+//         const NewComponet: React.FC<{ basicViewModel: BasicViewModel }> = (props) => {
+//             return <Component {...{ ...props, ...addProps }}></Component>;
+//         };
+//         return NewComponet;
+//     };
+// }
+
+export default BasicComponent;

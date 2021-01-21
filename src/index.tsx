@@ -18,9 +18,6 @@ class Root extends Component {
         super(props);
     }
 
-    private basicModel: BasicModel = new BasicModel();
-    private basicViewModel: BasicViewModel = new BasicViewModel(this.basicModel);
-
     // componentWillReceiveProps(newProps: rootProps) {
     //     console.log("Here!!");
     //     if (this.props.store.name != newProps.store.name) {
@@ -33,7 +30,7 @@ class Root extends Component {
         return (
             <div>
                 <p>React Start </p>
-                <BasicComponent basicViewModel={this.basicViewModel}/>
+                <BasicComponent />
             </div>
         );
     }

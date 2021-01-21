@@ -9,15 +9,16 @@ export class BasicModel extends Model {
         super();
     }
 
-    getName(): string {
-        return this.basicData.name;
-    }
+    async getName() {
+        return fetch("http://localhost:8080")
+            .then((response) => response.text())
+            .then((text)=>{return text});
 
-    setName(name: string) {
+
         // this.useAPI("http://localhost:8080", {}, REST.GET, (value: AxiosResponse) => {
-        //     console.log(value.data);
+        //     return value.data;
         // });
-
-        this.basicData.name = name;
     }
+
+    async setName(name: string) {}
 }
