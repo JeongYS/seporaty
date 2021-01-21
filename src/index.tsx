@@ -14,25 +14,32 @@ import Seporaty from "@seporaty/Component/Seporaty";
 const globalStore = createStore(basicReducers);
 
 class Root extends Component {
+
+    private basicViewModel : BasicViewModel = new BasicViewModel();
+    private bindingView : React.Component = new BasicComponent({basicViewModel: this.basicViewModel})
     constructor(props: any) {
         super(props);
     }
 
-    // componentWillReceiveProps(newProps: rootProps) {
-    //     console.log("Here!!");
-    //     if (this.props.store.name != newProps.store.name) {
-    //         console.log("Here!!");
-    //         this.setState({ store: newProps });
-    //     }
-    // }
-
     render() {
+        const BindedBasicViewModel = ()=>{
+            return bindViewModel(this.bindingView)(this.basicViewModel);
+        } 
+
         return (
             <div>
                 <p>React Start </p>
-                <BasicComponent />
+                <BasicComponent basicViewModel={this.basicViewModel}/>
             </div>
         );
+    }
+}
+
+function bindViewModel(Component: React.Component) {
+    return function (basicViewModel:BasicViewModel) {
+        basicViewModel.bind(Component)
+
+        return Component
     }
 }
 

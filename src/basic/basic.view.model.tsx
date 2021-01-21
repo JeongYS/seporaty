@@ -7,10 +7,16 @@ export const Action = {
     TESTB: "TESTB",
 };
 
-export class BasicViewModel {
-    private view: React.Component;
-    constructor(view: React.Component) {
+export class BasicViewModel{
+    private view: React.Component|null = null;
+    constructor() {
+    }
+
+    bind(view: React.Component) {
         this.view = view;
+        let name;
+        this.getName().then((value)=>name = value)
+        this.view.state = {name : name}
     }
 
     private basicModel = new BasicModel();
@@ -18,14 +24,14 @@ export class BasicViewModel {
     private element: any;
 
     async setName(name: string) {
-        this.view.setState({
+        this.view?.setState({
             name: `${name} (modified)`,
         });
     }
 
     async getName() {
         let tt = await this.basicModel.getName();
-        this.view.setState({
+        this.view?.setState({
             name: `${tt} (modified)`,
         });
     }
